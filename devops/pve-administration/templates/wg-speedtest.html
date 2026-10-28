@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>隧道测速</title>
+<style>
+  body{font-family:-apple-system,system-ui,sans-serif;background:#0f1115;color:#e6e6e6;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;
+       min-height:100vh;margin:0;padding:20px;box-sizing:border-box}
+  h1{font-size:20px;font-weight:600;margin:0 0 6px}
+  .sub{color:#8a8f98;font-size:13px;margin-bottom:26px;text-align:center;line-height:1.6}
+  button{background:#22c55e;color:#06220f;border:0;border-radius:12px;padding:16px 44px;
+         font-size:17px;font-weight:700;cursor:pointer;transition:.15s}
+  button:disabled{background:#2a2f3a;color:#666;cursor:not-allowed}
+  #speed{font-size:52px;font-weight:800;letter-spacing:-1px;margin:26px 0 4px;
+         background:linear-gradient(90deg,#22c55e,#4ade80);-webkit-background-clip:text;
+         -webkit-text-fill-color:transparent}
+  #unit{font-size:15px;color:#8a8f98;margin-bottom:18px}
+  #detail{font-size:13px;color:#8a8f98;text-align:center;line-height:1.8}
+  .bar{width:100%;max-width:340px;height:6px;background:#1e222b;border-radius:3px;
+       overflow:hidden;margin:14px 0}
+  .bar>i{display:block;height:100%;width:0;background:#22c55e;transition:width .2s}
+  .note{margin-top:30px;font-size:12px;color:#5b616e;max-width:360px;text-align:center;line-height:1.7}
+</style>
+</head>
+<body>
+<h1>隧道测速</h1>
+<div class="sub">测 15 秒，下载随机数据<br>结果上限 = 家宽的上行带宽（隧道与直连共用这条上限）</div>
+<button id="btn" onclick="run()">开始测速</button>
+<div id="speed">--</div>
+<div id="unit">Mbps</div>
+<div class="bar"><i id="bar"></i></div>
+<div id="detail"></div>
+<div class="note" id="note"></div>
+<script>
+// 配套 test200.bin = dd if=/dev/urandom of=test200.bin bs=1M count=200
+// 限时 15 秒而非下完 200MB —— 手机上别烧用户流量
+const SECONDS = 15;
+async function run(){
+  const btn = document.getElementById('btn');
+  const sp  = document.getElementById('speed');
+  const un  = document.getElementById('unit');
+  const det = document.getElementById('detail');
+  const bar = document.getElementById('bar');
+  btn.disabled = true; btn.textContent = '测速中…';
+  sp.textContent = '0'; un.textContent = 'Mbps';
+
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), SECONDS * 1000);
+  const t0 = performance.now();
+  let loaded = 0, lastT = t0, lastB = 0, peak = 0;
+
+  try {
+    const resp = await fetch('test200.bin?t=' + Date.now(), {signal: ac.signal, cache: 'no-store'});
+    const reader = resp.body.getReader();
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      loaded += value.byteLength;
+      const now = performance.now();
+      if (now - lastT > 250) {
+        const inst = (loaded - lastB) * 8 / ((now - lastT) / 1000) / 1e6;
+        if (inst > peak) peak = inst;
+        sp.textContent = inst.toFixed(1);
+        bar.style.width = Math.min(100, (now - t0) / (SECONDS * 10)) + '%';
+        det.textContent = (loaded / 1048576).toFixed(1) + ' MB 已下载 · 峰值 ' + peak.toFixed(1) + ' Mbps';
+        lastT = now; lastB = loaded;
+      }
+    }
+  } catch (e) { /* abort 属正常结束 */ }
+  clearTimeout(timer);
+
+  const dt = (performance.now() - t0) / 1000;
+  const avg = loaded * 8 / dt / 1e6;
+  sp.textContent = avg.toFixed(1);
+  un.textContent = 'Mbps 平均（' + (avg / 8).toFixed(1) + ' MB/s）';
+  det.textContent = '共下载 ' + (loaded / 1048576).toFixed(1) + ' MB，用时 ' + dt.toFixed(1) + ' 秒';
+  bar.style.width = '100%';
+  document.getElementById('note').textContent =
+    '提示：这个数字的上限是家宽的「上行」带宽，不是下行。所以它同时等于你用 IPv4 DDNS 直连家里时的最高下载速度。';
+  btn.disabled = false; btn.textContent = '再测一次';
+}
+</script>
+</body>
+</html>

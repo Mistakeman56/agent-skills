@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #fff; color: #1a1a2e;
+    width: 210mm; min-height: 297mm;
+    padding: 18mm 16mm 14mm 16mm;
+  }
+  .header { text-align: center; margin-bottom: 16px; border-bottom: 3px solid #1a1a2e; padding-bottom: 12px; }
+  .header h1 { font-size: 20px; letter-spacing: 3px; margin-bottom: 4px; }
+  .header .sub { font-size: 11px; color: #666; }
+  .grade-box { background: #f0f4ff; border: 1.5px solid #4361ee; border-radius: 8px; padding: 8px 14px; margin-bottom: 16px; font-size: 12px; text-align: center; }
+  .grade-box strong { color: #4361ee; }
+  .timeline { position: relative; padding-left: 42px; }
+  .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #4361ee, #7209b7, #f72585); border-radius: 2px; }
+  .phase { position: relative; margin-bottom: 10px; page-break-inside: avoid; }
+  .phase .dot { position: absolute; left: -33px; top: 6px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #4361ee; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #4361ee; z-index: 1; }
+  .phase:nth-child(n+5) .dot { border-color: #7209b7; color: #7209b7; }
+  .phase:nth-child(n+8) .dot { border-color: #f72585; color: #f72585; }
+  .card { background: #fafbff; border: 1.5px solid #dde; border-radius: 8px; padding: 8px 12px; }
+  .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .card-head .tag { font-size: 9px; padding: 1px 6px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+  .tag-student { background: #dbeafe; color: #1e40af; }
+  .tag-teacher { background: #dcfce7; color: #166534; }
+  .tag-both { background: #fef3c7; color: #92400e; }
+  .card-head h3 { font-size: 13px; font-weight: 700; }
+  .card .file { font-size: 11px; color: #4361ee; font-weight: 600; margin: 2px 0; }
+  .card .file::before { content: '📄 '; }
+  .card .desc { font-size: 10.5px; color: #555; line-height: 1.5; }
+  .card .note-space { margin-top: 4px; border-top: 1px dashed #ccc; padding-top: 3px; font-size: 9px; color: #aaa; height: 20px; }
+  .footer { margin-top: 14px; text-align: center; font-size: 9px; color: #999; border-top: 1px solid #eee; padding-top: 6px; }
+  .legend { display: flex; gap: 12px; justify-content: center; margin-bottom: 12px; font-size: 10px; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .legend .ldot { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>某大学 · 毕业设计流程图</h1>
+  <div class="sub">软件学院 2027届 ｜ 2023级适用 ｜ 学生端操作指南</div>
+</div>
+<div class="grade-box">
+  <strong>成绩计算公式：</strong>总评成绩 = 指导教师评分 × 0.4 + 评阅教师评分 × 0.3 + 答辩组评分 × 0.3
+</div>
+<div class="legend">
+  <span><div class="ldot" style="background:#dbeafe;border:1px solid #1e40af;"></div> 学生操作</span>
+  <span><div class="ldot" style="background:#dcfce7;border:1px solid #166534;"></div> 教师操作</span>
+  <span><div class="ldot" style="background:#fef3c7;border:1px solid #92400e;"></div> 双方协作</span>
+</div>
+<div class="timeline">
+  <div class="phase"><div class="dot">1</div><div class="card"><div class="card-head"><span class="tag tag-teacher">教师发起</span><h3>选题</h3></div><div class="desc">教师申报课题 → 专业负责人审核 → 院长发布 → 你选题 → 导师确认</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">2</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>开题报告</h3></div><div class="file">《开题报告》</div><div class="desc">在线填写或上传word → 导师审核 → 院长审核</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">3</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>初稿</h3></div><div class="file">《毕业论文/设计初稿》</div><div class="desc">上传word文档 → 指导教师审核 → 反复修改直到通过</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">4</div><div class="card"><div class="card-head"><span class="tag tag-teacher">教师填写</span><h3>中期检查</h3></div><div class="file">《中期检查表》</div><div class="desc">由指导教师填写，检查进度和质量</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">5</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>定稿</h3></div><div class="file">《毕业论文/设计定稿》</div><div class="desc">上传最终word → 导师审定 → 系统分配答辩组 + 评阅教师</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">6</div><div class="card"><div class="card-head"><span class="tag tag-both">三方评分</span><h3>评分</h3></div><div class="desc">导师评分(40%) + 评阅教师(30%) + 答辩组(30%) → 系统自动算总评 → 公布成绩</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">7</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>答辩附件</h3></div><div class="file">《答辩附件》（压缩包）</div><div class="desc">上传答辩相关材料的压缩包</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">8</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>最终稿</h3></div><div class="file">《毕业论文/设计最终稿》</div><div class="desc">根据答辩意见修改后提交 → 导师审核通过</div><div class="note-space">✎ 备注：</div></div></div>
+  <div class="phase"><div class="dot">9</div><div class="card"><div class="card-head"><span class="tag tag-student">学生提交</span><h3>指导日志</h3></div><div class="file">《指导日志》</div><div class="desc">提交整个毕业设计过程的指导记录 → 导师审核</div><div class="note-space">✎ 备注：</div></div></div>
+</div>
+<div class="footer">系统入口：http://vpcs.cqvip.com/organ/lib/dlufl/ ｜ 初始密码：@123456 ｜ 校友邦：www.xybsyw.com<br>整理于 2026年6月23日</div>
+</body>
+</html>

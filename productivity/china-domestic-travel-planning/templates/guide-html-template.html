@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅行攻略</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    width: 1080px; background: #f8f6f0; color: #333;
+  }
+  .container { padding: 40px 50px 50px; }
+  .header {
+    background: linear-gradient(135deg, #1a3a5c, #2d5f8a);
+    border-radius: 20px; padding: 30px 35px; color: #fff;
+    position: relative; overflow: hidden; margin-bottom: 30px;
+  }
+  .header::after { content: "游"; position: absolute; right: 20px; top: -20px;
+    font-size: 140px; opacity: 0.12; font-weight: 900; }
+  .header h1 { font-size: 42px; margin-bottom: 8px; letter-spacing: 2px; }
+  .header .sub { font-size: 20px; opacity: 0.9; }
+  .header .tag { display: inline-block; background: rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 4px 16px; font-size: 16px; margin-top: 12px; }
+
+  /* 时间线 */
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ""; position: absolute; left: 14px; top: 10px;
+    bottom: 10px; width: 4px; background: linear-gradient(180deg, #d4a853, #2d5f8a, #e74c3c);
+    border-radius: 2px; }
+  .block { position: relative; background: #fff; border-radius: 16px;
+    padding: 22px 26px 22px 55px; margin-bottom: 22px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+  .time-dot { position: absolute; left: -33px; top: 24px; width: 30px; height: 30px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 14px; font-weight: 700; }
+  .block-1 .time-dot { background: #d4a853; }
+  .block-2 .time-dot { background: #e67e22; }
+  .block-3 .time-dot { background: #27ae60; }
+  .block-4 .time-dot { background: #2d5f8a; }
+  .time-range { display: inline-block; background: #f0ebe0; color: #8a6d3b;
+    border-radius: 6px; padding: 2px 12px; font-size: 15px; font-weight: 700;
+    margin-bottom: 10px; }
+  .block-title { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+  .block-1 .block-title { color: #b8860b; }
+  .block-2 .block-title { color: #e67e22; }
+  .block-3 .block-title { color: #27ae60; }
+  .block-4 .block-title { color: #2d5f8a; }
+  .item { display: flex; align-items: flex-start; margin-bottom: 10px;
+    font-size: 18px; line-height: 1.6; }
+  .item-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px;
+    background: #f0f4fa; display: flex; align-items: center; justify-content: center;
+    margin-right: 12px; font-size: 17px; font-weight: 700; }
+  .item-name { font-weight: 700; margin-right: 8px; }
+  .item-desc { color: #666; }
+  .budget { background: #fff; border: 2px solid #d4a853; border-radius: 16px;
+    padding: 18px 26px; margin-top: 8px; display: flex; justify-content: space-between;
+    align-items: center; }
+  .budget-title { font-size: 20px; font-weight: 800; color: #b8860b; }
+  .budget-num { font-size: 22px; font-weight: 800; color: #333; }
+  .tips { background: #fff8e6; border: 2px dashed #e0b84c; border-radius: 16px;
+    padding: 20px 26px; margin-top: 22px; }
+  .tips-title { font-size: 20px; font-weight: 800; color: #b8860b; margin-bottom: 10px; }
+  .tips .item-desc { color: #8a6d3b; }
+  .footer { text-align: center; color: #aaa; font-size: 15px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>【改这里】城市 Day X 攻略</h1>
+    <div class="sub">日期 · 主题（上午文化/下午休息/晚上夜景）</div>
+    <span class="tag">🗺️ 全程地铁 · 节奏轻松</span>
+  </div>
+  <div class="timeline">
+    <!-- 复制 block 改内容，最多4-5块：上午/中午/下午/晚上 -->
+    <div class="block block-1">
+      <div class="time-dot">AM</div>
+      <span class="time-range">08:30 - 11:30</span>
+      <div class="block-title">🏛️ 上午景点</div>
+      <div class="item"><span class="item-icon">①</span><span class="item-name">景点名</span><span class="item-desc">门票/看点/建议</span></div>
+    </div>
+    <div class="block block-2">
+      <div class="time-dot">12</div>
+      <span class="time-range">11:30 - 13:00</span>
+      <div class="block-title">🍜 午餐</div>
+      <div class="item"><span class="item-icon">A</span><span class="item-name">店名</span><span class="item-desc">特色/人均</span></div>
+    </div>
+    <div class="block block-3">
+      <div class="time-dot">PM</div>
+      <span class="time-range">13:30 - 16:30</span>
+      <div class="block-title">🛏️ 下午休息</div>
+      <div class="item"><span class="item-icon">💤</span><span class="item-desc">回酒店午休/外卖</span></div>
+    </div>
+    <div class="block block-4">
+      <div class="time-dot">PM</div>
+      <span class="time-range">17:00 - 21:00</span>
+      <div class="block-title">🌉 晚上夜景</div>
+      <div class="item"><span class="item-icon">⛴️</span><span class="item-name">活动</span><span class="item-desc">细节</span></div>
+    </div>
+  </div>
+  <div class="budget">
+    <span class="budget-title">💰 预算参考</span>
+    <span class="budget-num">约 ¥XXX</span>
+  </div>
+  <div class="tips">
+    <div class="tips-title">💡 小贴士</div>
+    <div class="item"><span class="item-icon">⏰</span><span class="item-desc">贴士1</span></div>
+  </div>
+  <div class="footer">— assistant专属攻略 · 祝玩得开心 —</div>
+</div>
+</body>
+</html>

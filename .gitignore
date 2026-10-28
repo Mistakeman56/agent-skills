@@ -1,0 +1,19 @@
+# 环境与凭据
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*credentials*
+*secrets*
+
+# 运行时
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+
+# 日志与缓存
+*.log
+cache/
+tmp/
